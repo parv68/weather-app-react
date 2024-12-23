@@ -1,0 +1,125 @@
+import Search from "./search";
+import { useEffect, useState } from "react";
+import { WiHumidity } from "react-icons/wi";
+import { FaWind } from "react-icons/fa";
+import { GiPressureCooker } from "react-icons/gi";
+
+export default function Weather() {
+    const [search, setSearch] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [weatherData, setWeatherData] = useState(null);
+    const [error, setError] = useState(null);
+
+
+    async function fetchWeatherData(param) {
+        setLoading(true);
+        setError(null); // Clear previous errors
+        try {
+            const response = await fetch(
+                `https://api.openweathermap.org/data/2.5/forecast?q=${param}&units=metric&appid=da0908cb5d185e2778fa181372f1aa56`
+            );
+            const data = await response.json();
+            console.log(data);
+            if (response.ok) {
+                setWeatherData(data);
+            } else {
+                setWeatherData(null);
+                setError(data.message || "City not found. Please try another city.");
+            }
+        } catch (e) {
+            console.error("Error fetching weather data:", e);
+            setError("An error occurred. Please try again later.");
+        } finally {
+            setLoading(false);
+        }
+    }
+    async function handleSearch() {
+        if (search.trim() !== "") {
+            await fetchWeatherData(search);
+        } else {
+            console.log("Search term is empty.");
+        }
+    }
+
+    function getCurrentDate() {
+        return new Date().toLocaleDateString("en-us", {
+            weekday: "long",
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+        });
+    }
+
+    useEffect(() => {
+        fetchWeatherData("delhi");
+    }, []);
+
+    return (
+        <div className="weather-container">
+            <Search
+                search={search}
+                setSearch={setSearch}
+                handleSearch={handleSearch}
+            />
+            {error && <p className="error">{error}</p>}
+            {loading ? (
+                <p>Loading...</p>
+            ) : (
+                weatherData && (
+                    <div className="weather-data">
+                        <div className="top">
+                            <div className="city-name">
+                                <h1>
+                                    {weatherData.city.name}, <span>{weatherData.city.country}</span>
+                                </h1>
+                                <img src={`https://flagsapi.com/${weatherData.city.country}/flat/64.png`} alt="Country Flag" />
+                            </div>
+                            <div className="date">
+                                <span>{getCurrentDate()}</span>
+                            </div>
+                        </div>
+                        <div className="temperature">
+                            <img src={`https://openweathermap.org/img/wn/${weatherData.list[0].weather[0].icon}@4x.png`} alt="Clouds" />
+                            <p>{weatherData.list[0].main.temp}°C</p>
+                        </div>
+                        <div className="temprature-info">
+                            <div className="feels-like">
+                                <p>Feels like</p> 
+                                <p>{weatherData.list[0].main.feels_like}°C</p>
+                            </div>
+                            <div className="min">
+                                <p>Min temperature</p>
+                                <p>{weatherData.list[0].main.temp_min}°C</p>
+                            </div>
+                            <div className="max">
+                                <p>Max temperature </p>
+                                <p>{weatherData.list[0].main.temp_max}°C</p>
+                            </div>
+                            
+                        </div>
+                        <div className="weather-info">
+                            <div>
+                                <div className="wind">
+                                    <p>Wind Speed</p>
+                                    <p className="wind">{weatherData.list[0].wind.speed} m/s</p>
+                                    <FaWind />
+                                </div>
+                                <div className="humidity">
+                                    <p>Humidity</p>
+                                    <p className="humidity">{weatherData.list[0].main.humidity}%</p>
+                                    <WiHumidity />
+                                </div>
+                                <div className="pressure">
+                                    <p>Pressure</p>
+                                    <p className="humidity">{weatherData.list[0].main.pressure}%</p>
+                                    <GiPressureCooker />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
+            )}
+
+        </div>
+    );
+}
