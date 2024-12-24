@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { WiHumidity } from "react-icons/wi";
 import { FaWind } from "react-icons/fa";
 import { GiPressureCooker } from "react-icons/gi";
-
 export default function Weather() {
     const [search, setSearch] = useState("");
     const [loading, setLoading] = useState(false);
@@ -13,13 +12,12 @@ export default function Weather() {
 
     async function fetchWeatherData(param) {
         setLoading(true);
-        setError(null); // Clear previous errors
+        setError(null); 
         try {
             const response = await fetch(
                 `https://api.openweathermap.org/data/2.5/forecast?q=${param}&units=metric&appid=da0908cb5d185e2778fa181372f1aa56`
             );
             const data = await response.json();
-            console.log(data);
             if (response.ok) {
                 setWeatherData(data);
             } else {
@@ -27,7 +25,6 @@ export default function Weather() {
                 setError(data.message || "City not found. Please try another city.");
             }
         } catch (e) {
-            console.error("Error fetching weather data:", e);
             setError("An error occurred. Please try again later.");
         } finally {
             setLoading(false);
@@ -37,13 +34,13 @@ export default function Weather() {
         if (search.trim() !== "") {
             await fetchWeatherData(search);
         } else {
-            console.log("Search term is empty.");
+            setError("Please enter a city name.");
         }
     }
 
     function getCurrentDate() {
         return new Date().toLocaleDateString("en-us", {
-            weekday: "long",
+            weekday: "short",
             month: "long",
             day: "numeric",
             year: "numeric",
@@ -56,23 +53,23 @@ export default function Weather() {
 
     return (
         <div className="weather-container">
-            <Search
-                search={search}
-                setSearch={setSearch}
-                handleSearch={handleSearch}
-            />
             {error && <p className="error">{error}</p>}
             {loading ? (
                 <p>Loading...</p>
             ) : (
                 weatherData && (
                     <div className="weather-data">
+                        <Search
+                            search={search}
+                            setSearch={setSearch}
+                            handleSearch={handleSearch}
+                        />
                         <div className="top">
                             <div className="city-name">
                                 <h1>
                                     {weatherData.city.name}, <span>{weatherData.city.country}</span>
                                 </h1>
-                                <img src={`https://flagsapi.com/${weatherData.city.country}/flat/64.png`} alt="Country Flag" />
+                                <img src={`https://flagsapi.com/${weatherData.city.country}/flat/64.png`} alt="Country Flag" className="clouds" />
                             </div>
                             <div className="date">
                                 <span>{getCurrentDate()}</span>
@@ -81,6 +78,7 @@ export default function Weather() {
                         <div className="temperature">
                             <img src={`https://openweathermap.org/img/wn/${weatherData.list[0].weather[0].icon}@4x.png`} alt="Clouds" />
                             <p>{weatherData.list[0].main.temp}°C</p>
+                            <p className="description">{weatherData.list[0].weather[0].description}</p>
                         </div>
                         <div className="temprature-info">
                             <div className="feels-like">
@@ -88,11 +86,11 @@ export default function Weather() {
                                 <p>{weatherData.list[0].main.feels_like}°C</p>
                             </div>
                             <div className="min">
-                                <p>Min temperature</p>
+                                <p>Low</p>
                                 <p>{weatherData.list[0].main.temp_min}°C</p>
                             </div>
                             <div className="max">
-                                <p>Max temperature </p>
+                                <p>High</p>
                                 <p>{weatherData.list[0].main.temp_max}°C</p>
                             </div>
 
@@ -110,7 +108,7 @@ export default function Weather() {
                             </div>
                             <div className="pressure">
                                 <p>Pressure</p>
-                                <p className="humidity">{weatherData.list[0].main.pressure}%</p>
+                                <p className="humidity">{weatherData.list[0].main.pressure} mBar</p>
                                 <GiPressureCooker />
                             </div>
                         </div>
