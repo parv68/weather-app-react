@@ -84,7 +84,7 @@ export default function Weather() {
                         </div>
                         <div className="temprature-info">
                             <div className="feels-like">
-                                <p>Feels like</p> 
+                                <p>Feels like</p>
                                 <p>{weatherData.list[0].main.feels_like}°C</p>
                             </div>
                             <div className="min">
@@ -95,25 +95,23 @@ export default function Weather() {
                                 <p>Max temperature </p>
                                 <p>{weatherData.list[0].main.temp_max}°C</p>
                             </div>
-                            
+
                         </div>
                         <div className="weather-info">
-                            <div>
-                                <div className="wind">
-                                    <p>Wind Speed</p>
-                                    <p className="wind">{weatherData.list[0].wind.speed} m/s</p>
-                                    <FaWind />
-                                </div>
-                                <div className="humidity">
-                                    <p>Humidity</p>
-                                    <p className="humidity">{weatherData.list[0].main.humidity}%</p>
-                                    <WiHumidity />
-                                </div>
-                                <div className="pressure">
-                                    <p>Pressure</p>
-                                    <p className="humidity">{weatherData.list[0].main.pressure}%</p>
-                                    <GiPressureCooker />
-                                </div>
+                            <div className="wind">
+                                <p>Wind Speed</p>
+                                <p className="wind">{weatherData.list[0].wind.speed} m/s</p>
+                                <FaWind />
+                            </div>
+                            <div className="humidity">
+                                <p>Humidity</p>
+                                <p className="humidity">{weatherData.list[0].main.humidity}%</p>
+                                <WiHumidity />
+                            </div>
+                            <div className="pressure">
+                                <p>Pressure</p>
+                                <p className="humidity">{weatherData.list[0].main.pressure}%</p>
+                                <GiPressureCooker />
                             </div>
                         </div>
                     </div>

@@ -1,9 +1,21 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #74ebd5, #acb6e5);
+    color: #333;
+}
+h1{
+    margin: 0;
+    padding: 0;
+}
+
 .weather-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 20px; 
 }
 
 .search-engine {
@@ -11,184 +23,160 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 30px;
-    margin-top: 10px;
+    margin: 20px 0;
 }
 
 .search-engine input {
-    width: 40%;
+    width: 100%;
+    max-width: 1125px;
     height: 45px;
-    border: 1px solid #ccc;
+    border: 2px solid #74b9ff;
     border-radius: 8px;
-    padding: 2px 15px;
+    padding: 0 15px;
     font-size: 16px;
     outline: none;
-    color: #555555;
-    background-color: #ffffff;
-    transition: border-color 0.3s;
+    color: #333;
+    background-color: #f1f4f9;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .search-engine input:focus {
-    border-color: #5b6269; 
+    border-color: #0984e3;
+    box-shadow: 0 0 8px rgba(9, 132, 227, 0.5);
 }
 
 .search-engine button {
-    width: 15%;
     height: 45px;
-    padding: 10px 15px;
+    padding: 0 20px;
+    margin-left: 10px;
     border-radius: 8px;
-    background-color: #000; 
-    color: #ffffff;
-    font-size: 20px;
+    background-color: #000;
+    color: #fff;
+    font-size: 16px;
     border: none;
     cursor: pointer;
-    outline: none;
-    transition: all 0.3s ease;
-    margin-left: 10px;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 .search-engine button:hover {
-    background-color: #242323; 
+    background-color: #74b9ff;
 }
 
 .search-engine button:active {
-    transform: translateY(-1px);
+    transform: scale(0.98);
 }
-
 
 .weather-data {
-    background-color: #ffffff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 90%;
-    max-width: 700px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* City Name and Date */
-.top {
-    display: flex;
-    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     width: 100%;
-    align-items: center;
+    max-width: 1200px;
+    text-align: center;
+    background: linear-gradient(135deg, #f9f9f9, #ffffff);
 }
 
 .city-name {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px; /* Adjusted font size */
+    font-size: 28px;
+    font-weight: 600;
+    color: #2d3436;
+    gap: 10px;
 }
 
-.city-name img {
-    padding-left: 10px;
-    height: auto;
-}
+
 
 .date {
-    text-align: right;
-    font-size: 18px; /* Adjusted font size */
+    font-size: 16px;
+    color: #636e72;
+    margin-top: 5px;
 }
 
-/* Temperature Display */
 .temperature {
-    text-align: center;
-    margin: 20px 0;
-    font-size: 36px; /* Increased font size for temperature */
+    font-size: 48px;
+    font-weight: bold;
+    color: #0984e3;
+    margin: 10px 0; /* Reduced margin */
 }
 
 .temperature img {
-    width: 200px; /* Adjust size as needed */
+    width: 300px;
     height: auto;
-    margin: 0;
+    margin-bottom: -100px;
+    margin-top: -30px;
 }
 
 .description {
-    font-size: 20px; /* Adjusted font size for description */
-    margin: 10px 0;
+    font-size: 20px;
+    color: #636e72;
+    margin-bottom: 20px;
 }
 
-/* Temperature Info */
 .temprature-info {
     display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin: 20px 0;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: space-around;
+    margin-top: 20px;
 }
 
 .temprature-info div {
-    flex: 1; /* Equal width for each container */
+    flex: 1 1 30%;
+    padding: 15px;
+    background: #f1f4f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
-    padding: 10px;
-    background-color: #f9f9f9; /* Light background for contrast */
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    color: #2d3436;
 }
 
-/* Weather Info Containers */
 .weather-info {
     display: flex;
+    gap: 15px;
     justify-content: space-between;
-    width: 100%;
     margin-top: 20px;
 }
 
 .weather-info div {
-    flex: 1; /* Equal width for each container */
+    flex: 1;
+    padding: 15px;
+    background: #f1f4f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
-    padding: 10px;
-    background-color: #f9f9f9; /* Light background for contrast */
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    color: #2d3436;
 }
 
-/* Error and Loading Messages */
-.error {
-    color: red;
-    font-weight: bold;
+.weather-info div svg {
+    font-size: 48px; 
+    margin-bottom: 10px;
 }
 
-.loading {
-    font-size: 18px;
-    font-weight: bold;
-}
-
-/* Media Queries for Responsiveness */
 @media (max-width: 768px) {
     .search-engine input {
-        width: 70%; /* Wider input on smaller screens */
+        width: 70%;
     }
 
-    .search-engine button {
-        width: 25%; /* Wider button on smaller screens */
+    .temprature-info div, .weather-info div {
+        flex: 1 1 100%;
     }
 
     .weather-info {
-        flex-direction: column; /* Stack weather info on smaller screens */
-    }
-
-    .temprature-info {
-        flex-direction: column; /* Stack temperature info on smaller screens */
+        flex-direction: column;
     }
 }
 
 @media (max-width: 480px) {
     .city-name {
-        font-size: 20px; /* Smaller font size for mobile */
-    }
-
-    .date {
-        font-size: 16px; /* Smaller font size for mobile */
+        font-size: 20px;
     }
 
     .temperature {
-        font-size: 28px; /* Smaller font size for mobile */
-    }
-
-    .description {
-        font-size: 18px; /* Smaller font size for mobile */
+        font-size: 32px;
     }
 }
